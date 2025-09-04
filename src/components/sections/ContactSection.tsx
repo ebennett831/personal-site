@@ -17,10 +17,10 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
     <Section id="contact" className="bg-gray-800">
       <div className="text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-          Let's Connect
+          Let&apos;s Connect
         </h2>
         <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-12">
-          I'm always interested in new opportunities, collaborations, and conversations about technology
+          I&apos;m always interested in new opportunities, collaborations, and conversations about technology
         </p>
 
         <div className="max-w-md mx-auto space-y-6">
@@ -69,7 +69,7 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
         {/* Call to Action */}
         <div className="mt-12">
           <a
-            href={`mailto:${personalInfo.email}?subject=Let's Connect&body=Hi Ethan, I'd like to discuss...`}
+            href={`mailto:${personalInfo.email}?subject=Let&apos;s Connect&body=Hi Ethan, I&apos;d like to discuss...`}
             className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-lg"
           >
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
