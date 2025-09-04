@@ -52,7 +52,7 @@ export const projects: Project[] = [
       "Implemented modular shape composition and system optimization",
       "Applied advanced linear algebra and computational modeling"
     ],
-    status: "completed"
+    status: "in-progress"
   },
   {
     id: "minimax-games",
