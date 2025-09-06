@@ -10,6 +10,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Hero } from '@/components/sections/Hero';
 import { AboutSection } from '@/components/sections/AboutSection';
+import { SkillsSection } from '@/components/sections/SkillsSection';
 import { ProjectsSection } from '@/components/sections/ProjectsSection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
 import { ExtracurricularsSection } from '@/components/sections/ExtracurricularsSection';
@@ -34,7 +35,8 @@ export default function Home() {
       {/* Main content sections */}
       <main>
         <Hero personalInfo={personalInfo} />
-        <AboutSection education={education} skills={skills} />
+        <AboutSection education={education} />
+        <SkillsSection skills={skills} />
         <ProjectsSection projects={projects} />
         <ExperienceSection experiences={experiences} />
         <ExtracurricularsSection activities={extracurriculars} />
