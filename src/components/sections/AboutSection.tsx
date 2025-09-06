@@ -1,20 +1,24 @@
-import { Education, Skill } from '@/types';
+import { Education } from '@/types';
 import { Section } from '@/components/ui/Section';
 import { Card } from '@/components/ui/Card';
 
 interface AboutSectionProps {
   education: Education;
-  skills: Skill[];
 }
 
 /**
- * AboutSection Component - Black Box for About/Education/Skills
+ * AboutSection Component - Black Box for About/Education Information
  * 
- * Purpose: Displays education and skills information
- * Interface: Takes education and skills data
- * Replaceable: Layout and styling can change without affecting data structure
+ * Purpose: Displays personal introduction and educational background
+ * Interface: Takes education data only
+ * Replaceable: Layout and styling can change without affecting other sections
+ * 
+ * Black Box Principles:
+ * - Single responsibility: Only handles about/education content
+ * - Skills moved to dedicated SkillsSection for better separation of concerns
+ * - Clean interface: Simple education data input
  */
-export function AboutSection({ education, skills }: AboutSectionProps) {
+export function AboutSection({ education }: AboutSectionProps) {
   return (
     <Section id="about" className="bg-gray-800">
       <div className="text-center mb-12">
@@ -26,7 +30,7 @@ export function AboutSection({ education, skills }: AboutSectionProps) {
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="max-w-4xl mx-auto">
         {/* Education */}
         <Card>
           <h3 className="text-2xl font-semibold text-white mb-4">Education</h3>
@@ -58,30 +62,6 @@ export function AboutSection({ education, skills }: AboutSectionProps) {
                 </div>
               </div>
             )}
-          </div>
-        </Card>
-
-        {/* Skills */}
-        <Card>
-          <h3 className="text-2xl font-semibold text-white mb-4">Technical Skills</h3>
-          <div className="space-y-6">
-            {skills.map((skillCategory) => (
-              <div key={skillCategory.category}>
-                <h4 className="text-lg font-medium text-blue-400 mb-2">
-                  {skillCategory.category}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {skillCategory.items.map((skill) => (
-                    <span 
-                      key={skill}
-                      className="px-3 py-1 bg-gray-700 text-gray-300 rounded-full text-sm"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
           </div>
         </Card>
       </div>
