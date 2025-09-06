@@ -1,5 +1,6 @@
 import { PersonalInfo } from '@/types';
 import { Section } from '@/components/ui/Section';
+import { ContactButton } from '@/components/ui/ContactButton';
 
 interface ContactSectionProps {
   personalInfo: PersonalInfo;
@@ -68,15 +69,13 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
 
         {/* Call to Action */}
         <div className="mt-12">
-          <a
-            href={`mailto:${personalInfo.email}?subject=Let&apos;s Connect&body=Hi Ethan, I&apos;d like to discuss...`}
-            className="inline-flex items-center px-8 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium text-lg"
+          <ContactButton 
+            variant="email" 
+            email={personalInfo.email}
+            className="px-8 py-4 text-lg"
           >
-            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
             Send Me a Message
-          </a>
+          </ContactButton>
         </div>
       </div>
     </Section>
