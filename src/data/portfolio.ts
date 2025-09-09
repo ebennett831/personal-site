@@ -6,7 +6,7 @@ export const personalInfo: PersonalInfo = {
   email: "ethanjb500@gmail.com",
   phone: "(609) 819-5929",
   github: "https://github.com/ebennett831",
-  aboutMe: "Computer Science student with a strong academic foundation in algorithms, computational modeling, and simulation. Experienced in building interactive systems and collaborating on multidisciplinary projects that combine programming, mathematics, and design. Excited to expand my skills by contributing to research in fusion energy and plasma physics, and eager to apply computational approaches to real world scientific challenges."
+  aboutMe: "Computer Science student with a strong academic foundation and a passion for building software from the ground up. Experienced in developing interactive systems and tackling technical challenges that blend programming, mathematics, and design. Eager to apply computational skills and curiosity to real-world engineering problems and software development opportunities."
 };
 
 // Education Data
