@@ -1,13 +1,50 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
-  // Balanced grid size: good coverage without performance issues
-  // Desktop gets full grid, mobile uses CSS transforms for optimization
-  const rows = new Array(100).fill(1); // Restored larger grid for desktop
-  const cols = new Array(60).fill(1);  // Restored larger grid for desktop
+  const [gridSize, setGridSize] = useState({ rows: 120, cols: 80 });
+
+  useEffect(() => {
+    const calculateInitialGridSize = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      // Determine grid size based on screen resolution ranges
+      let rows, cols;
+      
+      if (width >= 2560) {
+        // 4K and ultra-wide monitors
+        rows = 180;
+        cols = 120;
+      } else if (width >= 1920) {
+        // Large desktop monitors (1080p+)
+        rows = 150;
+        cols = 100;
+      } else if (width >= 1440) {
+        // Medium desktop monitors
+        rows = 130;
+        cols = 85;
+      } else if (width >= 1024) {
+        // Small desktop/large tablet
+        rows = 110;
+        cols = 70;
+      } else {
+        // Mobile and small tablets
+        rows = 90;
+        cols = 55;
+      }
+      
+      setGridSize({ rows, cols });
+    };
+
+    calculateInitialGridSize();
+  }, []); // Only run once on mount
+
+  // Grid arrays based on calculated size
+  const rows = new Array(gridSize.rows).fill(1);
+  const cols = new Array(gridSize.cols).fill(1);
   
   const colors = [
     "#93c5fd",
@@ -27,10 +64,10 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   return (
     <div
       style={{
-        transform: `translate(-40%,-60%) skewX(-48deg) skewY(14deg) scale(0.675) rotate(0deg) translateZ(0)`,
+        transform: `translate(-50%,-50%) skewX(-48deg) skewY(14deg) scale(0.8) rotate(0deg) translateZ(0)`,
       }}
       className={cn(
-        "absolute -top-1/4 left-1/4 z-10 flex h-full w-full -translate-x-1/2 -translate-y-1/2 p-4",
+        "absolute top-1/2 left-1/2 z-10 flex h-[200vh] w-[200vw] p-4",
         className,
       )}
       {...rest}
