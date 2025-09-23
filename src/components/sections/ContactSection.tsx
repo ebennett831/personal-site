@@ -5,6 +5,8 @@ import { Section } from '@/components/ui/Section';
 import { ContactButton } from '@/components/ui/ContactButton';
 import { ContactFormModal } from '@/components/ui/ContactFormModal';
 import { useContactForm } from '@/hooks/useContactForm';
+import { Notification } from '@/components/ui/Notification';
+import React from 'react';
 
 interface ContactSectionProps {
   personalInfo: PersonalInfo;
@@ -19,6 +21,13 @@ interface ContactSectionProps {
  */
 export function ContactSection({ personalInfo }: ContactSectionProps) {
   const { isOpen, openForm, closeForm, handleSubmit } = useContactForm();
+  const [notification, setNotification] = React.useState<string | null>(null);
+
+  // Show notification after submit
+  const handleFormSubmit = async (message: any) => {
+    await handleSubmit(message);
+    setNotification("Thank you for your message! I'll get back to you soon.");
+  };
 
   return (
     <>
@@ -91,8 +100,11 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
     <ContactFormModal 
       isOpen={isOpen}
       onClose={closeForm}
-      onSubmit={handleSubmit}
+      onSubmit={handleFormSubmit}
     />
+    {notification && (
+      <Notification message={notification} onClose={() => setNotification(null)} />
+    )}
   </>
   );
 }

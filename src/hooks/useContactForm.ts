@@ -27,15 +27,10 @@ export function useContactForm() {
   // Handle form submission - placeholder for future database integration
   const handleSubmit = async (message: ContactMessage) => {
     console.log('Contact form submitted:', message);
-    
     // TODO: Replace with actual submission logic when Cloudflare D1 is ready
-    // This is where you'll integrate with your database
-    
     // Simulate async operation
     await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // For now, just log the message
-    alert('Thank you for your message! I\'ll get back to you soon.');
+    // No alert here; notification handled by parent
   };
 
   return {
