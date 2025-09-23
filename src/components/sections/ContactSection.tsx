@@ -1,6 +1,10 @@
+'use client';
+
 import { PersonalInfo } from '@/types';
 import { Section } from '@/components/ui/Section';
 import { ContactButton } from '@/components/ui/ContactButton';
+import { ContactFormModal } from '@/components/ui/ContactFormModal';
+import { useContactForm } from '@/hooks/useContactForm';
 
 interface ContactSectionProps {
   personalInfo: PersonalInfo;
@@ -14,8 +18,11 @@ interface ContactSectionProps {
  * Replaceable: Design and layout can change without affecting contact data
  */
 export function ContactSection({ personalInfo }: ContactSectionProps) {
+  const { isOpen, openForm, closeForm, handleSubmit } = useContactForm();
+
   return (
-    <Section id="contact" className="bg-gray-800">
+    <>
+      <Section id="contact" className="bg-gray-800">
       <div className="text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
           Let&apos;s Connect
@@ -70,8 +77,8 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
         {/* Call to Action */}
         <div className="mt-12">
           <ContactButton 
-            variant="email" 
-            email={personalInfo.email}
+            variant="form" 
+            onFormOpen={openForm}
             className="px-8 py-4 text-lg"
           >
             Send Me a Message
@@ -79,5 +86,13 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
         </div>
       </div>
     </Section>
+    
+    {/* Contact Form Modal */}
+    <ContactFormModal 
+      isOpen={isOpen}
+      onClose={closeForm}
+      onSubmit={handleSubmit}
+    />
+  </>
   );
 }

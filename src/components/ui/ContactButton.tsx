@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * ContactButton Component - Black Box for Contact Navigation
  * 
@@ -5,10 +7,11 @@
  * Interface: 
  *   - variant: 'navigate' | 'email' | 'form' (behavior type)
  *   - email?: string (for email variant)
+ *   - onFormOpen?: () => void (callback for form variant)
  *   - className?: string (for styling customization)
  * 
  * Replaceable: Can swap entire contact behavior without changing consumers
- * Single Responsibility: Only handles contact action
+ * Single Responsibility: Only handles contact action triggering
  * 
  * Black Box Principles:
  * - Clean interface: Simple props define behavior
@@ -19,6 +22,7 @@
 interface ContactButtonProps {
   variant?: 'navigate' | 'email' | 'form';
   email?: string;
+  onFormOpen?: () => void;
   className?: string;
   children?: React.ReactNode;
 }
@@ -26,9 +30,20 @@ interface ContactButtonProps {
 export function ContactButton({ 
   variant = 'navigate', 
   email = '',
+  onFormOpen,
   className = '',
   children = 'Get In Touch'
 }: ContactButtonProps) {
+  
+  const handleClick = (e: React.MouseEvent) => {
+    if (variant === 'form') {
+      e.preventDefault();
+      onFormOpen?.();
+      return;
+    }
+    // For other variants, let the default anchor behavior handle it
+  };
+
   // Determine href based on variant - this is where behavior is encapsulated
   const getHref = () => {
     switch (variant) {
@@ -37,17 +52,18 @@ export function ContactButton({
       case 'navigate':
         return '#contact';
       case 'form':
-        return '#contact-form'; // Future enhancement
+        return '#'; // Prevent navigation, handled by onClick
       default:
         return '#contact';
     }
   };
 
-  const baseClasses = "inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium";
+  const baseClasses = "inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium cursor-pointer";
 
   return (
     <a
       href={getHref()}
+      onClick={handleClick}
       className={`${baseClasses} ${className}`}
     >
       <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

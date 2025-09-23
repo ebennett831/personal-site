@@ -47,6 +47,14 @@ export interface Skill {
   items: string[];
 }
 
+// Contact form primitive - the core data structure for contact messages
+export interface ContactMessage {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}
+
 export interface ExtracurricularActivity {
   id: string;
   name: string;
