@@ -2,9 +2,7 @@
 
 import { PersonalInfo } from '@/types';
 import { Section } from '@/components/ui/Section';
-import { ContactButton } from '@/components/ui/ContactButton';
-import { ContactFormModal } from '@/components/ui/ContactFormModal';
-import { useContactForm } from '@/hooks/useContactForm';
+import { ContactForm } from '@/components/ui/ContactForm';
 import { Notification } from '@/components/ui/Notification';
 import React from 'react';
 
@@ -20,14 +18,7 @@ interface ContactSectionProps {
  * Replaceable: Design and layout can change without affecting contact data
  */
 export function ContactSection({ personalInfo }: ContactSectionProps) {
-  const { isOpen, openForm, closeForm, handleSubmit } = useContactForm();
   const [notification, setNotification] = React.useState<string | null>(null);
-
-  // Show notification after submit
-  const handleFormSubmit = async (message: any) => {
-    await handleSubmit(message);
-    setNotification("Thank you for your message! I'll get back to you soon.");
-  };
 
   return (
     <>
@@ -83,28 +74,35 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="mt-12">
-          <ContactButton 
-            variant="form" 
-            onFormOpen={openForm}
-            className="px-8 py-4 text-lg"
-          >
-            Send Me a Message
-          </ContactButton>
+        {/* Contact Form Section - Black Box */}
+        <div className="mt-12 max-w-lg mx-auto">
+          <h3 className="text-xl font-semibold text-white mb-4">Contact Me</h3>
+          <ContactForm
+            onSubmit={async (formData) => {
+              // Black box API call
+              const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  Name: formData.name,
+                  Email: formData.email,
+                  Phone: formData.phone,
+                  Description: formData.message,
+                }),
+              });
+              if (res.ok) setNotification("Thank you for your message! I'll get back to you soon.");
+              else setNotification("There was an error sending your message. Please try again.");
+            }}
+            className="bg-gray-900 p-6 rounded-xl shadow-lg"
+          />
         </div>
       </div>
     </Section>
     
-    {/* Contact Form Modal */}
-    <ContactFormModal 
-      isOpen={isOpen}
-      onClose={closeForm}
-      onSubmit={handleFormSubmit}
-    />
-    {notification && (
-      <Notification message={notification} onClose={() => setNotification(null)} />
-    )}
+  {/* Removed Contact Form Modal - replaced by inline form */}
+  {notification && (
+    <Notification message={notification} onClose={() => setNotification(null)} />
+  )}
   </>
   );
 }

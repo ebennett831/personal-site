@@ -10,3 +10,8 @@ binding = "ASSETS"
 [env.local]
 # Local development environment
 # Use this for local preview: wrangler dev --env local
+
+[[d1_databases]]
+binding = "DB"
+database_name = "contact-form-personal-site"
+database_id = "1c7c8c22-25a5-4cde-b184-840937588c52"
