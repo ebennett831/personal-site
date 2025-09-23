@@ -9,7 +9,6 @@ export const BoxesCore = ({ className, ...rest }: { className?: string }) => {
   useEffect(() => {
     const calculateInitialGridSize = () => {
       const width = window.innerWidth;
-      const height = window.innerHeight;
       
       // Determine grid size based on screen resolution ranges
       let rows, cols;

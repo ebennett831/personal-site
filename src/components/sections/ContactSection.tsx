@@ -1,6 +1,10 @@
+'use client';
+
 import { PersonalInfo } from '@/types';
 import { Section } from '@/components/ui/Section';
-import { ContactButton } from '@/components/ui/ContactButton';
+import { ContactForm } from '@/components/ui/ContactForm';
+import { Notification } from '@/components/ui/Notification';
+import React from 'react';
 
 interface ContactSectionProps {
   personalInfo: PersonalInfo;
@@ -14,8 +18,11 @@ interface ContactSectionProps {
  * Replaceable: Design and layout can change without affecting contact data
  */
 export function ContactSection({ personalInfo }: ContactSectionProps) {
+  const [notification, setNotification] = React.useState<string | null>(null);
+
   return (
-    <Section id="contact" className="bg-gray-800">
+    <>
+      <Section id="contact" className="bg-gray-800">
       <div className="text-center">
         <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
           Let&apos;s Connect
@@ -67,17 +74,35 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
           </div>
         </div>
 
-        {/* Call to Action */}
-        <div className="mt-12">
-          <ContactButton 
-            variant="email" 
-            email={personalInfo.email}
-            className="px-8 py-4 text-lg"
-          >
-            Send Me a Message
-          </ContactButton>
+        {/* Contact Form Section - Black Box */}
+        <div className="mt-12 max-w-lg mx-auto">
+          <h3 className="text-xl font-semibold text-white mb-4">Contact Me</h3>
+          <ContactForm
+            onSubmit={async (formData) => {
+              // Black box API call
+              const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  Name: formData.name,
+                  Email: formData.email,
+                  Phone: formData.phone,
+                  Description: formData.message,
+                }),
+              });
+              if (res.ok) setNotification("Thank you for your message! I'll get back to you soon.");
+              else setNotification("There was an error sending your message. Please try again.");
+            }}
+            className="bg-gray-900 p-6 rounded-xl shadow-lg"
+          />
         </div>
       </div>
     </Section>
+    
+  {/* Removed Contact Form Modal - replaced by inline form */}
+  {notification && (
+    <Notification message={notification} onClose={() => setNotification(null)} />
+  )}
+  </>
   );
 }

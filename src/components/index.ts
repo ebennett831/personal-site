@@ -6,6 +6,9 @@ export { Section } from './ui/Section';
 export { Card } from './ui/Card';
 export { ProjectCard } from './ui/ProjectCard';
 export { ExperienceCard } from './ui/ExperienceCard';
+export { ContactButton } from './ui/ContactButton';
+export { ContactForm } from './ui/ContactForm';
+export { ContactFormModal } from './ui/ContactFormModal';
 
 // Layout Components
 export { Header } from './layout/Header';
