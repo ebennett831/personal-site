@@ -7,7 +7,9 @@ declare namespace Cloudflare {
 		ASSETS: Fetcher;
 	}
 }
-interface CloudflareEnv extends Cloudflare.Env {}
+interface CloudflareEnv extends Cloudflare.Env {
+    DISCORD_WEBHOOK_URL: string;
+}
 
 // Begin runtime types
 /*! *****************************************************************************
