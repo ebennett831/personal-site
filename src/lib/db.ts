@@ -1,6 +1,8 @@
-import { ContactFormData } from "./contactFormService";
 
-export async function saveContactForm(data: ContactFormData, db: any): Promise<{ FormID: number }> {
+import { ContactFormData } from "./contactFormService";
+// D1Database is ambient from worker-configuration.d.ts
+
+export async function saveContactForm(data: ContactFormData, db: D1Database): Promise<{ FormID: number }> {
   const stmt = db.prepare(
     `INSERT INTO ContactForm (Name, Email, Phone, Description) VALUES (?, ?, ?, ?)`
   );
