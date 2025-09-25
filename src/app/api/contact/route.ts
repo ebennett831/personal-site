@@ -1,15 +1,11 @@
+
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { submitContactForm, ContactFormData } from "@/lib/contactFormService";
 
 export async function POST(request: Request) {
   const context = await getCloudflareContext({ async: true });
-  const db = context.env.DB;
-    type ContactFormData = {
-      Name: string;
-      Email: string;
-      Phone: string;
-      Description: string;
-    };
-    const data = await request.json() as ContactFormData;
+  const env = context.env;
+  const data = await request.json() as ContactFormData;
 
   // Validate input
   const { Name, Email, Phone, Description } = data;
@@ -17,13 +13,9 @@ export async function POST(request: Request) {
     return new Response("Missing required fields", { status: 400 });
   }
 
-  // Insert into D1
-  const stmt = db.prepare(
-    `INSERT INTO ContactForm (Name, Email, Phone, Description) VALUES (?, ?, ?, ?)`
-  );
-  const result = await stmt.bind(Name, Email, Phone, Description).run();
+  const result = await submitContactForm(data, env);
 
-  return new Response(JSON.stringify({ success: true, FormID: result.meta?.last_row_id }), {
+  return new Response(JSON.stringify(result), {
     status: 200,
     headers: { "Content-Type": "application/json" },
   });
