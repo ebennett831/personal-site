@@ -78,7 +78,7 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
         <div className="mt-12 max-w-lg mx-auto">
           <h3 className="text-xl font-semibold text-white mb-4">Contact Me</h3>
           <ContactForm
-            onSubmit={async (formData) => {
+            onSubmit={async (formData, token) => {
               // Black box API call
               const res = await fetch("/api/contact", {
                 method: "POST",
@@ -88,6 +88,7 @@ export function ContactSection({ personalInfo }: ContactSectionProps) {
                   Email: formData.email,
                   Phone: formData.phone,
                   Description: formData.message,
+                  token,
                 }),
               });
               if (res.ok) setNotification("Thank you for your message! I'll get back to you soon.");

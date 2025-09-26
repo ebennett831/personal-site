@@ -9,6 +9,7 @@ declare namespace Cloudflare {
 }
 interface CloudflareEnv extends Cloudflare.Env {
     DISCORD_WEBHOOK_URL: string;
+    TURNSTILE_SECRET_KEY: string;
 }
 
 // Begin runtime types

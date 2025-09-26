@@ -1,6 +1,23 @@
 'use client';
 
 import { useState } from 'react';
+// Declare window.turnstile type for TypeScript
+declare global {
+  interface Turnstile {
+    render: (el: HTMLElement, options: TurnstileOptions) => void;
+    reset: (el: HTMLElement) => void;
+  }
+  interface Window {
+    turnstile?: Turnstile;
+  }
+  interface TurnstileOptions {
+    sitekey: string;
+    callback: (token: string) => void;
+    'error-callback'?: () => void;
+    theme?: 'light' | 'dark';
+  }
+}
+import { useEffect, useRef } from 'react';
 import { ContactMessage } from '@/types';
 
 /**
@@ -22,7 +39,7 @@ import { ContactMessage } from '@/types';
  */
 
 interface ContactFormProps {
-  onSubmit: (message: ContactMessage) => void;
+  onSubmit: (message: ContactMessage, token: string) => void;
   onCancel?: () => void;
   className?: string;
 }
@@ -34,9 +51,48 @@ export function ContactForm({ onSubmit, onCancel, className = '' }: ContactFormP
     phone: '',
     message: ''
   });
-
   const [errors, setErrors] = useState<Partial<ContactMessage>>({});
+  const [tokenError, setTokenError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const turnstileRef = useRef<HTMLDivElement>(null);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
+
+  // Load Turnstile script
+  useEffect(() => {
+    if (window.turnstile) {
+      setScriptLoaded(true);
+      return;
+    }
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.async = true;
+    script.onload = () => setScriptLoaded(true);
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  // Render Turnstile widget
+  useEffect(() => {
+    if (!scriptLoaded || !turnstileRef.current || !window.turnstile) return;
+    turnstileRef.current.innerHTML = '';
+    window.turnstile.render(turnstileRef.current, {
+      sitekey: '0x4AAAAAAB3SSXBg0n9RGYzR',
+      callback: (token: string) => {
+        setToken(token);
+        setTokenError(null);
+      },
+      'error-callback': () => {
+        setToken(null);
+        setTokenError('Please complete the CAPTCHA');
+      },
+      theme: 'dark',
+    });
+    // Only run once after script loads
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scriptLoaded]);
 
   // Validation logic - encapsulated within this black box
   const validateForm = (): boolean => {
@@ -70,23 +126,28 @@ export function ContactForm({ onSubmit, onCancel, className = '' }: ContactFormP
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!validateForm()) {
       return;
     }
-
+    if (!token) {
+      setTokenError('Please complete the CAPTCHA');
+      return;
+    }
     setIsSubmitting(true);
     try {
-      await onSubmit(formData);
-      // Reset form after successful submission
+      await onSubmit(formData, token);
       setFormData({ name: '', email: '', phone: '', message: '' });
+      setToken(null);
+      if (turnstileRef.current && window.turnstile) {
+        window.turnstile.reset(turnstileRef.current);
+      }
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`space-y-6 ${className}`}>
+  <form onSubmit={handleSubmit} className={`space-y-6 ${className}`}>
       {/* Name Field */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -160,6 +221,14 @@ export function ContactForm({ onSubmit, onCancel, className = '' }: ContactFormP
         )}
       </div>
 
+      {/* Turnstile CAPTCHA - always visible, placed after questions, before submit */}
+      <div className="pt-2 flex flex-col items-center min-h-[80px]">
+        <div ref={turnstileRef} className="w-full flex justify-center" />
+        {tokenError && (
+          <p className="mt-1 text-sm text-red-400 text-center">{tokenError}</p>
+        )}
+      </div>
+
       {/* Action Buttons */}
       <div className="flex gap-4 pt-4">
         <button
@@ -169,7 +238,6 @@ export function ContactForm({ onSubmit, onCancel, className = '' }: ContactFormP
         >
           {isSubmitting ? 'Sending...' : 'Send Message'}
         </button>
-        
         {onCancel && (
           <button
             type="button"
