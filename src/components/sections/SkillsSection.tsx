@@ -26,7 +26,7 @@ export function SkillsSection({ skills }: SkillsSectionProps) {
           Technical Skills
         </h2>
         <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-          Technologies and tools I use to build amazing experiences
+          Tools and concepts I use across data, software, graphics, and interactive projects
         </p>
       </div>
 
