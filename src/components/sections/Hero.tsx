@@ -29,7 +29,7 @@ export function Hero({ personalInfo }: HeroProps) {
               {personalInfo.name}
             </h1>
             <p className="text-xl sm:text-2xl text-blue-400 font-light">
-              Computer Science Student & Developer
+              Data Science, Machine Learning & Software Engineering
             </p>
           </div>
 

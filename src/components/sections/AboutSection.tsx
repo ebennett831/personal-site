@@ -26,7 +26,7 @@ export function AboutSection({ education }: AboutSectionProps) {
           About Me
         </h2>
         <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-          Computer Science student passionate about algorithms, graphics, and interactive systems
+          Computer science student exploring data science, machine learning, and software engineering, with experience in graphics, interactive systems, and collaborative development
         </p>
       </div>
 

@@ -6,7 +6,7 @@ export const personalInfo: PersonalInfo = {
   email: "ethanjb500@gmail.com",
   phone: "(609) 819-5929",
   github: "https://github.com/ebennett831",
-  aboutMe: "Computer Science student with a strong academic foundation and a passion for building software from the ground up. Experienced in developing interactive systems and tackling technical challenges that blend programming, mathematics, and design. Eager to apply computational skills and curiosity to real-world engineering problems and software development opportunities."
+  aboutMe: "Computer science student interested in data science, machine learning, and software engineering. I build projects across predictive modeling, web development, computer graphics, and interactive systems, and enjoy collaborative work that connects strong technical foundations with practical applications."
 };
 
 // Education Data
@@ -16,18 +16,63 @@ export const education: Education = {
   degree: "Bachelor of Science in Computer Science",
   location: "Glenside, PA",
   graduationDate: "Expected May 2028",
-  gpa: "3.80",
+  gpa: "3.88",
   relevantCoursework: [
+    "Introduction to Data Science",
+    "Deep Learning",
+    "Linear Algebra",
+    "Discrete Structures",
     "Data Structures",
-    "Design & Analysis of Algorithms", 
+    "Design & Analysis of Algorithms",
     "Database Management System Design",
+    "Operating Systems",
     "Computer Organization & Architecture",
-    "Linear Algebra"
+    "Computer Ethics"
   ]
 };
 
 // Projects Data
 export const projects: Project[] = [
+  {
+    id: "rocket-league-skillshot-classification",
+    title: "Rocket League Skillshot Classification",
+    description: "A machine learning project that classifies Rocket League gameplay sequences using gameplay telemetry and statistical feature engineering.",
+    technologies: ["Python", "PyTorch", "Pandas", "NumPy", "Scikit-learn", "Seaborn"],
+    githubUrl: "https://github.com/ebennett831/rocket-league-skillshot-classification",
+    highlights: [
+      "Developed a multiclass classifier across seven gameplay categories using 298 labeled sequences",
+      "Engineered 84 numerical features from 18 raw variables",
+      "Conducted exploratory data analysis and feature correlation analysis",
+      "Achieved 85.3% test accuracy and a macro F1-score of 0.852"
+    ],
+    status: "completed"
+  },
+  {
+    id: "cyberford",
+    title: "CyberFord — AI-Enhanced Cybersecurity Education Platform",
+    description: "A cybersecurity education platform designed to teach high school students through interactive lessons, AI-generated news summaries, and personalized review exercises.",
+    technologies: ["Cybersecurity Education", "Interactive Learning", "Curriculum Development"],
+    highlights: [
+      "Collaborating with a professor and fellow student developers to develop educational curriculum",
+      "Developing and integrating interactive learning materials that simplify technical cybersecurity topics and emphasize practical, hands-on learning",
+      "Contributing to the organization, formatting, and presentation of technical educational content"
+    ],
+    status: "in-progress"
+  },
+  {
+    id: "personal-portfolio",
+    title: "Personal Portfolio Website",
+    description: "A responsive personal portfolio website built with a modular component architecture and serverless cloud infrastructure.",
+    technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Cloudflare Workers", "Cloudflare D1"],
+    githubUrl: "https://github.com/ebennett831/personal-site",
+    liveUrl: "https://bennettethan.com",
+    highlights: [
+      "Developed a responsive, interactive website with reusable components",
+      "Implemented serverless contact form functionality and database integration",
+      "Integrated Cloudflare Turnstile spam prevention and Discord webhook notifications"
+    ],
+    status: "completed"
+  },
   {
     id: "vr-rehabilitation",
     title: "VR Rehabilitation Simulation",
@@ -119,16 +164,28 @@ export const experiences: Experience[] = [
 // Skills Data
 export const skills: Skill[] = [
   {
-    category: "Programming & Math",
-    items: ["Java", "Python", "3D Linear Algebra", "Algorithmic Design", "Numerical Computation"]
+    category: "Programming Languages",
+    items: ["Python", "Java", "TypeScript"]
   },
   {
-    category: "Tools & Technologies", 
-    items: ["Unreal Engine (Blueprints)", "Java Swing UI", "Git/GitHub", "Version Control", "Collaborative Software Development"]
+    category: "Data Science & Machine Learning",
+    items: ["PyTorch", "Pandas", "NumPy", "Scikit-learn", "Seaborn", "Exploratory Data Analysis", "Feature Engineering", "Multiclass Classification"]
   },
   {
-    category: "Applied Systems",
-    items: ["Real-time Rendering", "Modular Architecture", "Performance Optimization", "Simulation Concepts"]
+    category: "Web Development",
+    items: ["Next.js", "React", "Tailwind CSS", "Serverless APIs", "Modular Architecture"]
+  },
+  {
+    category: "Databases & Cloud Infrastructure",
+    items: ["Cloudflare Workers", "Cloudflare D1", "Cloudflare Turnstile", "Discord Webhooks", "Database Design"]
+  },
+  {
+    category: "Mathematics & Algorithms",
+    items: ["3D Linear Algebra", "Algorithmic Design", "Numerical Computation", "Minimax", "Alpha-Beta Pruning", "Matrix Transformations", "Barycentric Rasterization", "Z-Buffering"]
+  },
+  {
+    category: "Developer Tools & Game Development",
+    items: ["Git/GitHub", "Version Control", "Unreal Engine (Blueprints)", "VR Development", "Java Swing UI", "Real-time Rendering", "Performance Optimization", "Simulation Concepts", "Collaborative Software Development"]
   }
 ];
 

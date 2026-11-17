@@ -21,11 +21,11 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
           Featured Projects
         </h2>
         <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-          A showcase of my technical projects, from 3D graphics rendering to VR applications
+          A comprehensive collection of work across machine learning, web development, computer graphics, and interactive systems
         </p>
       </div>
 
-      <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 auto-rows-fr gap-8 md:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}

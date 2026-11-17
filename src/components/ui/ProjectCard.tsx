@@ -28,9 +28,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Card className="h-full flex flex-col">
       {/* Project Header */}
-      <div className="flex items-start justify-between mb-4">
-        <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-        <span className={`px-2 py-1 rounded text-xs font-medium text-white ${statusColors[project.status]}`}>
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <h3 className="min-w-0 flex-1 text-xl leading-snug font-semibold text-white break-words">{project.title}</h3>
+        <span className={`shrink-0 px-2 py-1 rounded text-xs font-medium text-white ${statusColors[project.status]}`}>
           {statusLabels[project.status]}
         </span>
       </div>
@@ -70,7 +70,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       )}
 
       {/* Links */}
-      <div className="flex gap-3 mt-auto pt-4">
+      <div className="flex flex-wrap gap-3 mt-auto pt-4">
         {project.githubUrl && (
           <a
             href={project.githubUrl}
